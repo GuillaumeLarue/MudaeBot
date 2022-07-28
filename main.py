@@ -1,7 +1,7 @@
 import argparse
 import time
-import schedule
 
+import schedule
 from selenium import webdriver
 from selenium.webdriver import Keys
 from selenium.webdriver.chrome.service import Service
@@ -28,7 +28,6 @@ def init_driver():
     """
     options = webdriver.ChromeOptions()
     options.headless = False
-    options.add_argument("--no-sandbox")
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     return driver
 
@@ -78,11 +77,19 @@ def send_dollar_p(driver, args):
     driver.quit()
 
 
+def job():
+    """
+    Main function
+    :return: nothing
+    """
+    args = get_arguments()
+    driver = init_driver()
+    send_dollar_p(driver, args)
+
+
 if __name__ == '__main__':
-    # TODO : improve schedule module
-    # TypeError: the first argument must be callable
-    schedule.every(2).hours.do(send_dollar_p(init_driver(), get_arguments()))
+    # TODO: Docker
+    schedule.every(2).hours.do(job)
     while True:
         schedule.run_pending()
         time.sleep(1)
-
