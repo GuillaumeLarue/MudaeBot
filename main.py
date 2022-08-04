@@ -14,6 +14,9 @@ def get_arguments():
     Get id and password from arguments
     :return:
     """
+    if not len(sys.argv) > 1:
+        print("Please enter the id and password")
+        sys.exit(1)
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--id", help="Id")
     parser.add_argument("-p", "--password", help="Password")
