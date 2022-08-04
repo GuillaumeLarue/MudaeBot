@@ -30,8 +30,12 @@ def init_driver():
     :return: the driver
     """
     options = webdriver.ChromeOptions()
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
     options.headless = False
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    #driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+    driver = webdriver.Remote(command_executor='http://localhost:4444/wd/hub', options=options)
+    print("Driver initialized")
     return driver
 
 
