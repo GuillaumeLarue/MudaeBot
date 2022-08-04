@@ -1,10 +1,9 @@
 import argparse
+import sys
 import time
 
-import schedule
 from selenium import webdriver
 from selenium.webdriver import Keys
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -21,6 +20,7 @@ def get_arguments():
     parser.add_argument("-i", "--id", help="Id")
     parser.add_argument("-p", "--password", help="Password")
     args = parser.parse_args()
+    print("Arguments received")
     return args
 
 
@@ -95,8 +95,15 @@ def job():
 
 
 if __name__ == '__main__':
-    # TODO: Docker
-    schedule.every(2).hours.do(job)
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+    # Print the time
+    print(time.strftime("%H:%M:%S"))
+    print("Starting the bot")
+    job()
+    print("Bot stopped")
+    print(time.strftime("%H:%M:%S"))
+
+    # schedule.every(2).minutes.do(job)
+
+    # while True:
+    #    schedule.run_pending()
+    #    time.sleep(1)
