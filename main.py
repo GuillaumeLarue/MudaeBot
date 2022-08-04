@@ -68,20 +68,23 @@ def send_dollar_p(driver, args):
                             "/html/body/div[1]/div[2]/div/div[1]/div/div/div/div/form/div/div/div[1]/div[2]/button[2]/div").click()
         time.sleep(10)
 
-    # Go to the channel
-    driver.get("https://discord.com/channels/758063518355554375/782706641355014144")
-    time.sleep(5)
+        # Go to the channel
+        driver.get("https://discord.com/channels/758063518355554375/782706641355014144")
+        time.sleep(10)
 
-    # Send a message in the channel
-    driver.find_element(By.XPATH,
-                        "/html/body/div[1]/div[2]/div/div[1]/div/div[2]/div/div[1]/div/div/div[3]/div[2]/main/form/div/div/div/div[1]/div/div[3]/div/div[2]/div").send_keys(
-        "$p")
-    time.sleep(3)
-
-    # Send enter
-    driver.find_element(By.XPATH, "/html/body").send_keys(Keys.RETURN + Keys.ENTER + Keys.SHIFT)
-    time.sleep(5)
-    driver.quit()
+        # Send a message in the channel
+        driver.find_elements(By.CSS_SELECTOR, "[aria-label='Envoyer un message dans #pokemon-🐲']")[0].send_keys("$p")
+        time.sleep(10)
+        # Send enter
+        driver.find_element(By.XPATH, "/html/body").send_keys(Keys.RETURN + Keys.ENTER + Keys.SHIFT)
+        time.sleep(5)
+        # Print
+        print("$p sent")
+    except Exception as e:
+        print("Error: " + str(e))
+    finally:
+        driver.close()
+        driver.quit()
 
 
 def job():
