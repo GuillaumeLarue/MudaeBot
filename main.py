@@ -52,17 +52,17 @@ def send_dollar_p(driver, args):
     id = args.id
 
     # Send id and password
-    driver.find_element(By.XPATH,
-                        "/html/body/div[1]/div[2]/div/div[1]/div/div/div/div/form/div/div/div[1]/div[2]/div[1]/div/div[2]/input").send_keys(
-        id)
-    driver.find_element(By.XPATH,
-                        "/html/body/div[1]/div[2]/div/div[1]/div/div/div/div/form/div/div/div[1]/div[2]/div[2]/div/input").send_keys(
-        mdp)
-
-    # Click on login button
-    driver.find_element(By.XPATH,
-                        "/html/body/div[1]/div[2]/div/div[1]/div/div/div/div/form/div/div/div[1]/div[2]/button[2]/div").click()
-    time.sleep(5)
+    try:
+        driver.find_element(By.XPATH,
+                            "/html/body/div[1]/div[2]/div/div[1]/div/div/div/div/form/div/div/div[1]/div[2]/div[1]/div/div[2]/input").send_keys(
+            id)
+        driver.find_element(By.XPATH,
+                            "/html/body/div[1]/div[2]/div/div[1]/div/div/div/div/form/div/div/div[1]/div[2]/div[2]/div/input").send_keys(
+            mdp)
+        # Click on login button
+        driver.find_element(By.XPATH,
+                            "/html/body/div[1]/div[2]/div/div[1]/div/div/div/div/form/div/div/div[1]/div[2]/button[2]/div").click()
+        time.sleep(10)
 
     # Go to the channel
     driver.get("https://discord.com/channels/758063518355554375/782706641355014144")
