@@ -5,7 +5,6 @@ import time
 from selenium import webdriver
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
-from webdriver_manager.chrome import ChromeDriverManager
 
 
 def get_arguments():
@@ -33,8 +32,20 @@ def init_driver():
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     options.headless = False
-    #driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
-    driver = webdriver.Remote(command_executor='http://localhost:4444/wd/hub', options=options)
+    driver = None
+    try:
+        for i in range(10):
+            try:
+                driver = webdriver.Remote(command_executor='http://172.17.0.5:4444/wd/hub', options=options)
+            except Exception as e:
+                print(f"Error {i}: {str(e)}")
+                time.sleep(10)
+                continue
+            else:
+                break
+    except Exception as e:
+        print(f"Error end: {str(e)}")
+        sys.exit(1)
     print("Driver initialized")
     return driver
 
@@ -98,6 +109,8 @@ def job():
 
 
 if __name__ == '__main__':
+    # TODO Test 2 minutes execution time
+
     # Print the time
     print(time.strftime("%H:%M:%S"))
     print("Starting the bot")
