@@ -12,10 +12,10 @@
 
 ## Use
 
+Change your discord IDs in the Dockerfile.
 ```bash
-    docker run -d -p 4444:4444 selenium/standalone-chrome
-    python3 main.py -i your_discord_id -p your_discord_password
+    docker compose up -d
 ```
 
-## Authors
+## Author
 - Guillaume Larue
