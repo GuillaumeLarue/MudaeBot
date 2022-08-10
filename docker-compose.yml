@@ -1,0 +1,29 @@
+services:
+  mudae-bot:
+    container_name: mudae-bot
+    build:
+        context: .
+        dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    restart: "no"
+    image: mudae
+    depends_on:
+      - selenium
+    links:
+      - selenium
+    network_mode: "bridge"
+
+  selenium:
+    container_name: selenium
+    restart: "on-failure"
+    image: "selenium/standalone-chrome:latest"
+    ports:
+      - "4444:4444"
+    network_mode: "bridge"
+
+  test:
+    container_name: titi
+    image: "busybox:latest"
+    network_mode: "bridge"
+    command: ["sh", "-c", "while true; do echo hello; sleep 1; done"]
