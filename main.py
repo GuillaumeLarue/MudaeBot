@@ -66,26 +66,33 @@ def send_dollar_p(driver, args):
     mdp = args.password
     id = args.id
 
-    # Send id and password
+
     try:
+        # Send id and password
         driver.find_element(By.XPATH,
                             "/html/body/div[1]/div[2]/div/div[1]/div/div/div/div/form/div/div/div[1]/div[2]/div[1]/div/div[2]/input").send_keys(
             id)
+        print("Id found")
+
         driver.find_element(By.XPATH,
                             "/html/body/div[1]/div[2]/div/div[1]/div/div/div/div/form/div/div/div[1]/div[2]/div[2]/div/input").send_keys(
             mdp)
+        print("Password found")
         # Click on login button
         driver.find_element(By.XPATH,
                             "/html/body/div[1]/div[2]/div/div[1]/div/div/div/div/form/div/div/div[1]/div[2]/button[2]/div").click()
         time.sleep(10)
+        print("Login button found and clicked")
 
         # Go to the channel
         driver.get("https://discord.com/channels/758063518355554375/782706641355014144")
         time.sleep(10)
+        print("Channel found")
 
         # Send a message in the channel
         driver.find_elements(By.CSS_SELECTOR, "[aria-label='Envoyer un message dans #pokemon-🐲']")[0].send_keys("$p")
         time.sleep(10)
+        print("Message input found and sent")
         # Send enter
         driver.find_element(By.XPATH, "/html/body").send_keys(Keys.RETURN + Keys.ENTER + Keys.SHIFT)
         time.sleep(5)
@@ -110,6 +117,7 @@ def job():
 
 if __name__ == '__main__':
     # TODO Test 2 minutes execution time
+    # IDEA: one function that connect and init, and a second function that send the message
 
     # Print the time
     print(time.strftime("%H:%M:%S"))
