@@ -7,10 +7,7 @@ services:
     volumes:
       - .:/app
     restart: "no"
-    image: mudae
     depends_on:
-      - selenium
-    links:
       - selenium
     network_mode: "bridge"
 
