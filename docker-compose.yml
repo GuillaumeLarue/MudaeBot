@@ -9,7 +9,8 @@ services:
     restart: "no"
     depends_on:
       - selenium
-    network_mode: "bridge"
+    networks:
+      - "mudaentw"
 
   selenium:
     container_name: selenium
@@ -17,10 +18,17 @@ services:
     image: "selenium/standalone-chrome:latest"
     ports:
       - "4444:4444"
-    network_mode: "bridge"
+    networks:
+      - "mudaentw"
+    hostname: "seleniumweb"
 
   test:
     container_name: titi
     image: "busybox:latest"
-    network_mode: "bridge"
+    networks:
+      - "mudaentw"
     command: ["sh", "-c", "while true; do echo hello; sleep 1; done"]
+
+networks:
+  mudaentw:
+    driver: bridge

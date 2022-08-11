@@ -2,6 +2,7 @@ import argparse
 import sys
 import time
 
+import schedule
 from selenium import webdriver
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
@@ -33,19 +34,24 @@ def init_driver():
     options.add_argument('--disable-dev-shm-usage')
     options.headless = False
     driver = None
-    try:
-        for i in range(10):
-            try:
-                driver = webdriver.Remote(command_executor='http://172.17.0.5:4444/wd/hub', options=options)
-            except Exception as e:
-                print(f"Error {i}: {str(e)}")
-                time.sleep(10)
-                continue
-            else:
-                break
-    except Exception as e:
-        print(f"Error end: {str(e)}")
+    good = False
+    for i in range(10):
+        try:
+            driver = webdriver.Remote(command_executor='http://seleniumweb:4444/wd/hub', options=options)
+            # driver = webdriver.Remote(command_executor='http://localhost:4444/wd/hub', options=options)
+
+        except Exception as e:
+            print(f"Error {i}: {str(e)}")
+            time.sleep(10)
+            continue
+        else:
+            good = True
+            break
+
+    if not good:
+        print("Error: driver not found")
         sys.exit(1)
+
     print("Driver initialized")
     return driver
 
@@ -65,7 +71,6 @@ def send_dollar_p(driver, args):
     # Get id and password
     mdp = args.password
     id = args.id
-
 
     try:
         # Send id and password
@@ -110,24 +115,22 @@ def job():
     Main function
     :return: nothing
     """
+    print(time.strftime("%H:%M:%S"))
+    print("Starting the bot")
     args = get_arguments()
     driver = init_driver()
     send_dollar_p(driver, args)
-
-
-if __name__ == '__main__':
-    # TODO Test 2 minutes execution time
-    # IDEA: one function that connect and init, and a second function that send the message
-
-    # Print the time
-    print(time.strftime("%H:%M:%S"))
-    print("Starting the bot")
-    job()
     print("Bot stopped")
     print(time.strftime("%H:%M:%S"))
 
-    # schedule.every(2).minutes.do(job)
 
-    # while True:
-    #    schedule.run_pending()
-    #    time.sleep(1)
+if __name__ == '__main__':
+    # TODO Logging https://github.com/CoreyMSchafer/code_snippets/blob/master/Logging-Basics/log-sample.py
+    # TODO Add environment variable for id and password https://stackoverflow.com/questions/40454470/how-can-i-use-a-variable-inside-a-dockerfile-cmd
+    # IDEA: one function that connect and init, and a second function that send the message
+
+    schedule.every(2).hours.do(job)
+
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
