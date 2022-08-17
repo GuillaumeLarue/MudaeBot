@@ -15,7 +15,7 @@ services:
   selenium:
     container_name: selenium
     restart: "on-failure"
-    image: "selenium/standalone-chrome:latest"
+    image: "selenium/standalone-chrome:104.0"
     ports:
       - "4444:4444"
     networks:
