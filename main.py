@@ -13,7 +13,7 @@ def get_arguments():
     Get id and password from arguments
     :return:
     """
-    if not len(sys.argv) > 1:
+    if len(sys.argv) == 1:
         print("Please enter the id and password")
         sys.exit(1)
     parser = argparse.ArgumentParser()
@@ -40,8 +40,8 @@ def init_driver():
             driver = webdriver.Remote(command_executor='http://seleniumweb:4444/wd/hub', options=options)
             # driver = webdriver.Remote(command_executor='http://localhost:4444/wd/hub', options=options)
 
-        except Exception as e:
-            print(f"Error {i}: {str(e)}")
+        except Exception as exception:
+            print(f"Error {i}: {str(exception)}")
             time.sleep(10)
             continue
         else:
@@ -103,8 +103,8 @@ def send_dollar_p(driver, args):
         time.sleep(5)
         # Print
         print("$p sent")
-    except Exception as e:
-        print("Error: " + str(e))
+    except Exception as exception:
+        print("Error: " + str(exception))
     finally:
         driver.close()
         driver.quit()
@@ -116,11 +116,11 @@ def job():
     :return: nothing
     """
     print(time.strftime("%H:%M:%S"))
-    print("Starting the bot")
+    print("Starting the automation")
     args = get_arguments()
     driver = init_driver()
     send_dollar_p(driver, args)
-    print("Bot stopped")
+    print("Bot automation stopped")
     print(time.strftime("%H:%M:%S"))
 
 
@@ -129,7 +129,8 @@ if __name__ == '__main__':
     # TODO Add environment variable for id and password https://stackoverflow.com/questions/40454470/how-can-i-use-a-variable-inside-a-dockerfile-cmd
     # IDEA: one function that connect and init, and a second function that send the message
 
-    schedule.every(2).hours.do(job)
+    print(f"Starting the bot {time.strftime('%H:%M:%S')}")
+    schedule.every().hour.do(job)
 
     while True:
         schedule.run_pending()
