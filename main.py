@@ -91,13 +91,13 @@ def send_dollar_p(driver, args):
 
         # Go to the channel
         driver.get("https://discord.com/channels/758063518355554375/782706641355014144")
-        time.sleep(10)
         print("Channel found")
 
+        time.sleep(50)
         # Send a message in the channel
-        driver.find_elements(By.CSS_SELECTOR, "[aria-label='Envoyer un message dans #pokemon-🐲']")[0].send_keys("$p")
-        time.sleep(10)
-        print("Message input found and sent")
+        driver.find_elements(By.CSS_SELECTOR, "[aria-label^='Envoyer un ']")[0].send_keys("$p")
+        time.sleep(40)
+        print("Message input found and sent keys")
         # Send enter
         driver.find_element(By.XPATH, "/html/body").send_keys(Keys.RETURN + Keys.ENTER + Keys.SHIFT)
         time.sleep(5)
@@ -130,7 +130,7 @@ if __name__ == '__main__':
     # IDEA: one function that connect and init, and a second function that send the message
 
     print(f"Starting the bot {time.strftime('%H:%M:%S')}")
-    schedule.every().hour.do(job)
+    schedule.every(2).hours.do(job)
 
     while True:
         schedule.run_pending()
