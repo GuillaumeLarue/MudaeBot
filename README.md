@@ -1,5 +1,7 @@
 # MudaeBot
 
+This project is a discord bot that will automatically claim Pokémon on the Discord Mudae game.
+
 ## Installation
 
 ```bash
@@ -17,9 +19,13 @@ Change your discord IDs in the Dockerfile and run the bot with:
 ```bash
     docker compose up -d --build
 ```
-To stop the bot you have to run 
+
+To stop the bot you have to run
+
 ```bash
     docker compose down
 ```
+
 ## Author
+
 - Guillaume Larue
