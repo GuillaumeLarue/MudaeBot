@@ -74,10 +74,14 @@ def send_dollar_p(driver, args):
 
     try:
         # Send id and password
-        driver.find_element(By.XPATH,"/html/body/div[2]/div[2]/div/div[1]/div/div/div/div/form/div/div/div[1]/div[2]/div[1]/div/div[2]/input").send_keys(id)
+        driver.find_element(By.XPATH,
+                            "/html/body/div[2]/div[2]/div/div[1]/div/div/div/div/form/div/div/div[1]/div[2]/div[1]/div/div[2]/input").send_keys(
+            id)
         print("Id found")
 
-        driver.find_element(By.XPATH, "/html/body/div[2]/div[2]/div/div[1]/div/div/div/div/form/div/div/div[1]/div[2]/div[2]/div/input").send_keys(mdp)
+        driver.find_element(By.XPATH,
+                            "/html/body/div[2]/div[2]/div/div[1]/div/div/div/div/form/div/div/div[1]/div[2]/div[2]/div/input").send_keys(
+            mdp)
         print("Password found")
 
         # Click on login button

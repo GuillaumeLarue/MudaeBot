@@ -2,8 +2,8 @@ services:
   mudae-bot:
     container_name: mudae-bot
     build:
-        context: .
-        dockerfile: Dockerfile
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - .:/app
     restart: "no"
@@ -28,7 +28,7 @@ services:
     image: "busybox:latest"
     networks:
       - "mudaentw"
-    command: ["sh", "-c", "while true; do echo hello; sleep 1; done"]
+    command: [ "sh", "-c", "while true; do echo hello; sleep 1; done" ]
 
 networks:
   mudaentw:
